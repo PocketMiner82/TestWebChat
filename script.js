@@ -27,16 +27,7 @@ function grabMessages() {
 }
 
 function postMessage(form) {
-  fetch(api, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      sender: form.sender.value,
-      message: form.message.value
-    })
-  })
+  fetch(api + "?sender=" + form.sender.value + "&message=" + form.message.value)
     .then(resp => resp.json())
     .then(function(json) {
       grabMessages()
