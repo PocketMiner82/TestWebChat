@@ -27,7 +27,7 @@ function grabMessages() {
 }
 
 function postMessage(form) {
-  fetch(api + "?sender=" + htmlEntities(form.sender.value) + "&message=" + htmlEntities(form.message.value))
+  fetch(api + "?sender=" + encodeURIComponent(form.sender.value) + "&message=" + encodeURIComponent(form.message.value))
     .then(resp => resp.json())
     .then(function(json) {
       grabMessages()
@@ -43,7 +43,7 @@ function renderMessages(messages) {
   mostRecent.forEach(message => {
     if (message == null)
       return;
-    message = htmlEntities(message);
+    message.message = htmlEntities(message.message);
     if (!!!document.querySelector(`li[data-id='${message.id}']`)) {
       newList += makeLi(message)
     }
@@ -63,10 +63,10 @@ function makeLi(message) {
   }
   //prettier-ignore
   return `
-    <li data-id='${message.id}'><strong>${sender}:</strong>${message.message}</li>
+    <li data-id='${message.id}'><strong>${sender}: </strong>${message.message}</li>
     `
 }
 
 function htmlEntities(str) {
-    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    return String(str).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;');
 }
