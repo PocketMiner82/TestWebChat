@@ -1,3 +1,5 @@
+const api = "https://script.google.com/macros/s/AKfycby9phHXlwBJLPZweATo1JCzYKWrQPxuhlH66FhdHeqo-A6bkdY900r20DaC6exaaFFQ0A/exec";
+
 document.addEventListener("DOMContentLoaded", function(e) {
   // Name can't be blank
   let user = ""
@@ -17,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
 })
 
 function grabMessages() {
-  fetch("https://fierce-wave-66462.herokuapp.com/messages")
+  fetch(api)
     .then(resp => resp.json())
     .then(function(messages) {
       renderMessages(messages)
@@ -25,7 +27,7 @@ function grabMessages() {
 }
 
 function postMessage(form) {
-  fetch("https://fierce-wave-66462.herokuapp.com/messages", {
+  fetch(api, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
