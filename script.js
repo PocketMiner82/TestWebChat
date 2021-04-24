@@ -50,6 +50,8 @@ function renderMessages(messages) {
   const list = document.querySelector("#message-list")
   let newList = ""
   mostRecent.forEach(message => {
+    if (message == null)
+      return;
     if (!!!document.querySelector(`li[data-id='${message.id}']`)) {
       newList += makeLi(message)
     }
