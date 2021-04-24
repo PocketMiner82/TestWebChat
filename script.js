@@ -27,7 +27,7 @@ function grabMessages() {
 }
 
 function postMessage(form) {
-  fetch(api + "?sender=" + form.sender.value + "&message=" + form.message.value)
+  fetch(api + "?sender=" + htmlEntities(form.sender.value) + "&message=" + htmlEntities(form.message.value))
     .then(resp => resp.json())
     .then(function(json) {
       grabMessages()
@@ -64,4 +64,8 @@ function makeLi(message) {
   return `
     <li data-id='${message.id}'><strong>${sender}:</strong>${message.message}</li>
     `
+}
+
+function htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
