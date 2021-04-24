@@ -43,6 +43,7 @@ function renderMessages(messages) {
   mostRecent.forEach(message => {
     if (message == null)
       return;
+    message = htmlEntities(message);
     if (!!!document.querySelector(`li[data-id='${message.id}']`)) {
       newList += makeLi(message)
     }
